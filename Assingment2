@@ -1,0 +1,69 @@
+#CREATE
+import mysql.connector
+conn = mysql.connector.connect(host='localhost',password='NainaJha4@',user='root')
+if conn.is_connected():
+   print("connection successful...")
+
+#CONNECT
+import mysql.connector
+conn = mysql.connector.connect(host='localhost',password='NainaJha4@',user='root')
+mycursor=conn.cursor()
+mycursor.execute("show databases")
+for i in mycursor:
+    print(i)
+
+#STUDENT TABLE
+import mysql.connector
+conn = mysql.connector.connect(host='localhost',password='NainaJha4@',user='root')
+mycursor=conn.cursor()
+mycursor.execute ("create table if not exists Assignment2.student_Table(Student_id INT PRIMARY KEY,Name varchar(225),email varchar(225),Phone varchar(25),Address TEXT);")
+conn.close()
+
+#COURSE TABLE
+import mysql.connector
+conn = mysql.connector.connect(host='localhost',password='NainaJha4@',user='root')
+mycursor=conn.cursor()
+mycursor.execute("create table if not exists Assignment2.course_Table (course_id INT PRIMARY KEY,courseName varchar(225),credits INT);")
+conn.close()
+
+#EXAM TABLE
+import mysql.connector
+conn = mysql.connector.connect(host='localhost',password='NainaJha4@',user='root')
+mycursor=conn.cursor()
+mycursor.execute("create table if not exists Assignment2.Exam_Table (Exam_id INT PRIMARY KEY,ExamDate DATE,ExamTime TIME,Location varchar(225));")
+conn.close()
+
+#FACULTY TABLE
+import mysql.connector
+conn = mysql.connector.connect(host='localhost',password='NainaJha4@',user='root')
+mycursor=conn.cursor()
+mycursor.execute("create table if not exists Assignment2.Faculty_Table (Faculty_id INT PRIMARY KEY,Name varchar(255),email varchar(255),Phone varchar(20),Department varchar(255));")
+conn.close()
+
+#Enrollment_Table
+import mysql.connector
+conn = mysql.connector.connect(host='localhost',password='NainaJha4@',user='root')
+mycursor=conn.cursor()
+mycursor.execute("create table if not exists Assignment2.Enrollment_Table (enrollment_id INT PRIMARY KEY,Student_id INT,course_id INT,FOREIGN KEY (Student_id) REFERENCES student_Table(Student_id),FOREIGN KEY (course_id) REFERENCES course_Table(course_id),enrollmentDate DATE);")
+conn.close()
+
+#Teaching_Table
+import mysql.connector
+conn = mysql.connector.connect(host='localhost',password='NainaJha4@',user='root')
+mycursor=conn.cursor()
+mycursor.execute("create table if not exists Assignment2.Teaching_Table (TeachingId INT PRIMARY KEY,Faculty_id INT,course_id INT,FOREIGN KEY (Faculty_id) REFERENCES Faculty_Table(Faculty_id),FOREIGN KEY (course_id) REFERENCES course_Table(course_id));")
+conn.close()
+
+#ExamRegistration_Table
+import mysql.connector
+conn = mysql.connector.connect(host='localhost',password='NainaJha4@',user='root')
+mycursor=conn.cursor()
+mycursor.execute("create table if not exists Assignment2.ExamRegistration_Table(RegistrationID INT PRIMARY KEY,Student_id INT,Exam_id INT,FOREIGN KEY (Student_id) REFERENCES student_Table(Student_id),FOREIGN KEY (Exam_id) REFERENCES Exam_Table(Exam_id),RegistrationDate DATE);")
+conn.close()
+
+#ExamResults_Table
+import mysql.connector
+conn = mysql.connector.connect(host='localhost',password='NainaJha4@',user='root')
+mycursor=conn.cursor()
+mycursor.execute("create table if not exists Assignment2.ExamResults_Table(ResultsID INT PRIMARY KEY,Student_id INT,Exam_id INT,FOREIGN KEY (Student_id) REFERENCES student_Table(Student_id),FOREIGN KEY (Exam_id) REFERENCES Exam_Table(Exam_id),Score Decimal(5,2));")
+conn.close()
